@@ -1,0 +1,49 @@
+/* 1. Animasi Transisi Halus Saat Website Pertama Kali Terbuka (Online) */
+@keyframes fadeInUpAwal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInHanya {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Menerapkan efek halus ke komponen utama saat pertama dimuat */
+nav {
+    animation: fadeInHanya 0.8s ease-out forwards;
+}
+
+#beranda .relative.max-w-4xl {
+    animation: fadeInUpAwal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 2. Mengoptimalkan Transisi Efek Hover/Sentuhan (Aman untuk Layar Sentuh HP) */
+a, button {
+    transition: all 0.3s ease-in-out !important;
+}
+
+/* Menghilangkan efek kedip biru saat tombol ditekan di HP Android/iOS */
+a, button, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 3. Menjaga Kestabilan Komponen Mobile */
+@media (max-width: 768px) {
+    /* Memastikan elemen ber-AOS tidak membuat layar bergeser ke kanan di HP */
+    [data-aos] {
+        opacity: 0;
+        transition-property: transform, opacity;
+    }
+    
+    /* Mencegah lag animasi saat scroll cepat di smartphone */
+    .islamic-pattern {
+        background-attachment: scroll !important;
+    }
+}
