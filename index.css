@@ -1,8 +1,10 @@
-/* 1. Animasi Transisi Halus Saat Website Pertama Kali Terbuka (Online) */
-@keyframes fadeInUpAwal {
+/* ================= TRANSISI & ANIMASI TAMBAHAN ================= */
+
+/* 1. Animasi Halus Saat Pertama Kali Website Terbuka (Page Load) */
+@keyframes smoothFadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(25px);
     }
     to {
         opacity: 1;
@@ -10,40 +12,59 @@
     }
 }
 
-@keyframes fadeInHanya {
+@keyframes smoothFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-/* Menerapkan efek halus ke komponen utama saat pertama dimuat */
+/* Menerapkan animasi pemuatan ke komponen utama */
 nav {
-    animation: fadeInHanya 0.8s ease-out forwards;
+    animation: smoothFadeIn 0.8s ease-out forwards;
 }
 
 #beranda .relative.max-w-4xl {
-    animation: fadeInUpAwal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: smoothFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* 2. Mengoptimalkan Transisi Efek Hover/Sentuhan (Aman untuk Layar Sentuh HP) */
-a, button {
-    transition: all 0.3s ease-in-out !important;
+/* 2. Optimalisasi Efek Transisi Hover & Aktif (Sangat Halus) */
+a, button, .rounded-xl, .rounded-2xl {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Menghilangkan efek kedip biru saat tombol ditekan di HP Android/iOS */
+/* Menghilangkan efek kedip kotak biru/abu-abu yang mengganggu saat tombol ditekan di HP */
 a, button, input, select, textarea {
     -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
-/* 3. Menjaga Kestabilan Komponen Mobile */
+/* 3. Efek Zoom Halus Khusus untuk Gambar di Galeri & Staff saat Di-hover */
+#kegiatan .bg-white:hover img, 
+#pimpinan .bg-white:hover img {
+    transform: scale(1.06);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#kegiatan .overflow-hidden img,
+#pimpinan .overflow-hidden img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 4. Perbaikan Performa Animasi untuk Perangkat Mobile */
 @media (max-width: 768px) {
-    /* Memastikan elemen ber-AOS tidak membuat layar bergeser ke kanan di HP */
+    /* Memastikan elemen AOS tidak memicu bug layar bergeser ke kanan di beberapa HP */
     [data-aos] {
         opacity: 0;
         transition-property: transform, opacity;
     }
     
-    /* Mencegah lag animasi saat scroll cepat di smartphone */
+    /* Mencegah lag animasi background bermotif saat digulir di smartphone */
     .islamic-pattern {
         background-attachment: scroll !important;
+    }
+    
+    /* Mengurangi jarak melayang tombol PPDB di HP agar tidak menutupi konten utama */
+    .fixed.bottom-4.right-4 {
+        bottom: 1rem;
+        right: 1rem;
     }
 }
